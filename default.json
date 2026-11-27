@@ -1,0 +1,87 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "yagihash のリポジトリで共通の Renovate 設定。リポジトリ固有の設定は各リポジトリの renovate.json に書く。",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":timezone(Asia/Tokyo)",
+    "helpers:pinGitHubActionDigestsToSemver",
+    "mergeConfidence:all-badges"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "reviewers": [
+    "yagihash"
+  ],
+  "schedule": [
+    "after 8pm on friday"
+  ],
+  "prHourlyLimit": 0,
+  "automerge": true,
+  "automergeType": "pr",
+  "platformAutomerge": true,
+  "rangeStrategy": "pin",
+  "minimumReleaseAge": "7 days",
+  "internalChecksFilter": "strict",
+  "prCreation": "not-pending",
+  "osvVulnerabilityAlerts": true,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": [
+      "after 8pm on friday"
+    ]
+  },
+  "packageRules": [
+    {
+      "description": "Never automerge major updates",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "automerge": false
+    },
+    {
+      "description": "Pin GitHub Actions to commit SHA for security",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "pinDigests": true
+    },
+    {
+      "description": "Group and automerge GitHub Actions digest/minor/patch updates",
+      "groupName": "GitHub Actions",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest"
+      ],
+      "automerge": true
+    }
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Tool versions installed by a script or a run step, marked with a `# renovate: datasource=... depName=...` comment above `name=vX.Y.Z` (ghalint and actionlint in the jobs of the shared ci.yml)",
+      "managerFilePatterns": [
+        "/^\\.github\\/workflows\\/ci\\.yml$/"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s*\\w+=(?<currentValue>\\S+)"
+      ]
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "labels": [
+      "security"
+    ],
+    "automerge": true,
+    "minimumReleaseAge": null,
+    "schedule": [
+      "at any time"
+    ]
+  }
+}
