@@ -27,12 +27,6 @@
   "internalChecksFilter": "strict",
   "prCreation": "not-pending",
   "osvVulnerabilityAlerts": true,
-  "lockFileMaintenance": {
-    "enabled": true,
-    "schedule": [
-      "after 8pm on friday"
-    ]
-  },
   "packageRules": [
     {
       "description": "Never automerge major updates",
@@ -60,6 +54,15 @@
         "digest"
       ],
       "automerge": true
+    },
+    {
+      "description": "yagihash 配下の依存（自分のアクション・ツール・モジュール）は、公開直後でも更新する。minimumReleaseAge と、それを待つ prCreation の対象から外す",
+      "matchPackageNames": [
+        "yagihash/**",
+        "github.com/yagihash/**",
+        "ghcr.io/yagihash/**"
+      ],
+      "minimumReleaseAge": null
     }
   ],
   "customManagers": [
