@@ -68,7 +68,7 @@
   "customManagers": [
     {
       "customType": "regex",
-      "description": "Tool versions installed by a script or a run step, marked with a `# renovate: datasource=... depName=...` comment above `name=vX.Y.Z` (ghalint and actionlint in the jobs of the shared ci.yml)",
+      "description": "Tool versions installed by a script or a run step, marked with a `# renovate: datasource=... depName=...` comment above `name=vX.Y.Z` (octocov and gh-actions-lock in the jobs of ci.yml, for example)",
       "managerFilePatterns": [
         "/^\\.github\\/workflows\\/ci\\.yml$/"
       ],
